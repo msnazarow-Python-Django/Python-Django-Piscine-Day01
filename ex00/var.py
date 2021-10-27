@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+
+
 def my_var():
     var1 = 42
     var2 = '42'
@@ -6,7 +9,7 @@ def my_var():
     var5 = True
     var6 = [42]
     var7 = {42: 42}
-    var8 = (42)
+    var8 = (42,)
     var9 = set()
     for argument in locals().values():
         print(f'{argument} has a type {type(argument)}')

@@ -99,9 +99,12 @@ def generate_element(periodic_elem, last_number):
 		fake_elem = f'<td colspan="{span_length - 1}" style="border:0"></td>\n'
 	elif span_length > 1:
 		if periodic_elem.number == 72:
-			fake_elem = generate_element(DotDict({'position': 2, 'number': 71, 'small': 'Lu', 'full':'Lutetium', 'molar': 174.9668}), last_number)
+			fake_elem = generate_element(
+				DotDict({'position': 2, 'number': 71, 'small': 'Lu', 'full': 'Lutetium', 'molar': 174.9668}),
+				last_number)
 		elif periodic_elem.number == 104:
-			fake_elem = generate_element(DotDict({'position': 2, 'number': 103, 'small': 'Lr', 'full': 'Lawrencium', 'molar': 262}), last_number)
+			fake_elem = generate_element(
+				DotDict({'position': 2, 'number': 103, 'small': 'Lr', 'full': 'Lawrencium', 'molar': 262}), last_number)
 	element_class = get_elem_class(periodic_elem)
 	elem = fake_elem + f'<td class="{element_class}">%s</td>\n'
 	args = periodic_elem.small, periodic_elem.number, periodic_elem.molar
@@ -181,14 +184,20 @@ li:nth-child(3) {
 '''
 	file_css.write(css)
 
+
 def main():
 	filename = 'periodic_table.txt'
 	basename = os.path.splitext(filename)[0]
-	with open(filename, 'r') as file_txt, \
-			open(f"{basename}.html", 'w') as file_html, \
-			open(f"{basename}.css", 'w') as file_css:
-		generate_css(file_css)
-		create_periodic_table_html(file_txt, file_html, f"{basename}.css")
+	try:
+		with open(filename, 'r') as file_txt, \
+				open(f"{basename}.html", 'w') as file_html, \
+				open(f"{basename}.css", 'w') as file_css:
+			generate_css(file_css)
+			create_periodic_table_html(file_txt, file_html, f"{basename}.css")
+	except IOError as e:
+		print("I/O error({0}): {1}".format(e.errno, e.strerror))
+	except Exception as e:
+		print("Unexpected error:", e)
 
 
 if __name__ == '__main__':

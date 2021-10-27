@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 def var_to_dict(array_of_tuples):
     my_dict = {}
     for my_tuple in array_of_tuples:
@@ -29,8 +30,7 @@ def main():
         ('Burton', '1939')
     ]
     my_dict = var_to_dict(d)
-    for key, value in my_dict.items():
-        print(f"'{value}': '{key}',")
+    print('\n'.join(f"'{key}': '{value}'" for key, value in my_dict.items()))
 
 
 if __name__ == '__main__':
